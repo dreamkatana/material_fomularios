@@ -46,3 +46,21 @@ def request_loader(request):
     username = request.form.get('username')
     user = Users.query.filter_by(username=username).first()
     return user if user else None
+
+class Class(db.Model):
+    __tablename__ = 'classes'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    secret_code = db.Column(db.String(20), nullable=True)
+    course_code = db.Column(db.Integer, nullable=True)
+    course_class = db.Column(db.String(20), nullable=True)
+    unique_link = db.Column(db.String(100), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
+
+class Attendance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    course_code = db.Column(db.String(50))
+    course_class = db.Column(db.String(50))
+    emp = db.Column(db.Integer)
+    matricula = db.Column(db.Integer)
+    email = db.Column(db.String(100))
+    date = db.Column(db.DateTime, default=db.func.current_timestamp())
