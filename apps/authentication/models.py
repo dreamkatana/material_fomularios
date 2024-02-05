@@ -2,6 +2,7 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
+import uuid
 
 from flask_login import UserMixin
 
@@ -57,6 +58,7 @@ class Class(db.Model):
     unique_link = db.Column(db.String(100), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
 
 class Attendance(db.Model):
+    __tablename__ = 'attendance'
     id = db.Column(db.Integer, primary_key=True)
     course_code = db.Column(db.String(50))
     course_class = db.Column(db.String(50))

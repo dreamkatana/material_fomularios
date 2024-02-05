@@ -1,0 +1,62 @@
+{% extends "layouts/base-nologin.html" %}
+
+{% block title %} Attendance for {{ course.name }} {% endblock %} 
+
+<!-- Specific Page CSS goes HERE -->
+{% block stylesheets %}
+<style>
+    .form-control {
+      border: 1px solid #ced4da; /* Adds a border to the input */
+      background-color: #f8f9fa; /* A light grey background color */
+      box-shadow: inset 0 1px 2px rgba(0,0,0,.075); /* A subtle inner shadow to add depth */
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; /* Smooth transition for focus effect */
+    }
+    .form-control:focus {
+      border-color: #80bdff; /* Changes border color on focus */
+      outline: 0; /* Removes the default outline */
+      box-shadow: inset 0 1px 2px rgba(0,0,0,.075), 0 0 5px rgba(128, 189, 255, .5); /* Adds a glow effect on focus */
+    }
+    .form-label {
+      color: #495057; /* Making the label text a bit darker for contrast */
+      font-weight: 600; /* Optional: Makes the label text bold */
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3">Frequência {{ course.name }}</h6>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <form method="post" class="p-3">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="matricula" class="form-label">Matricula:</label>
+                <input type="text" class="form-control" id="matricula" name="matricula" required>
+              </div>
+              <div class="mb-3">
+                <label for="secret" class="form-label">Secret Code:</label>
+                <input type="text" class="form-control" id="secret" name="secret" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
