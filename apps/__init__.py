@@ -56,9 +56,13 @@ def create_app(config):
     app = Flask(__name__)
     app.config.from_object(config)
     @app.context_processor
-    def inject_assets_root():
-        # Make sure ASSETS_ROOT is fetched from app.config
-        return {'ASSETS_ROOT': app.config['ASSETS_ROOT']}
+    def inject_globals():
+        return {
+            'ASSETS_ROOT': app.config.get('ASSETS_ROOT', '/static/assets'),
+            'URL_ADDCLASS': app.config.get('URL_ADDCLASS', 'https://servicos.educorp.unicamp.br/frequencia/add_class'),
+            'URL_LOGOUT': app.config.get('URL_LOGOUT', 'https://servicos.educorp.unicamp.br/frequencia/logout')
+        }
+    
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
