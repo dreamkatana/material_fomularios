@@ -6,6 +6,8 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 from flask import Flask
 from flask_login import LoginManager
+from flask_talisman import Talisman
+
 from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 # Import dotenv to load environment variables
@@ -54,6 +56,7 @@ def configure_database(app):
 
 def create_app(config):
     app = Flask(__name__)
+    Talisman(app)
     app.config.from_object(config)
     register_extensions(app)
     register_blueprints(app)
