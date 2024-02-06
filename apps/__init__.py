@@ -60,7 +60,10 @@ def create_app(config):
         return {
             'ASSETS_ROOT': app.config.get('ASSETS_ROOT', '/static/assets'),
             'URL_ADDCLASS': app.config.get('URL_ADDCLASS', 'https://servicos.educorp.unicamp.br/frequencia/add_class'),
-            'URL_LOGOUT': app.config.get('URL_LOGOUT', 'https://servicos.educorp.unicamp.br/frequencia/logout')
+            'URL_LOGOUT': app.config.get('URL_LOGOUT', 'https://servicos.educorp.unicamp.br/frequencia/logout'),
+            'URL_INDEX': app.config.get('URL_INDEX', 'https://servicos.educorp.unicamp.br/frequencia/index'),
+            'URL_ATTEND': app.config.get('URL_ATTEND', 'https://servicos.educorp.unicamp.br/frequencia/attend'),
+            'URL_ATTEND_DATA': app.config.get('URL_ATTEND_DATA', 'https://servicos.educorp.unicamp.br/frequencia/attendance_data')
         }
     
     register_extensions(app)

@@ -20,8 +20,8 @@
                 <h6 class="text-sm mb-0 text-capitalize">{{ cls.name }}</h6>
                 <p class="text-sm">CURSO: {{ cls.course_code }} - TURMA: {{ cls.course_class }}</p>
                 <p class="text-sm">SECRET CODE: {{ cls.secret_code }}</p>             
-                <button onclick="copyToClipboard('{{ url_for('home_blueprint.attend', unique_link=cls.unique_link) }}')" class="btn btn-sm btn-outline-dark mt-2">Copiar Link Aluno</button>
-                <button class="btn btn-sm btn-outline-dark mt-2"><a href="{{ url_for('home_blueprint.filtered_attendance_data', course_code=cls.course_code, course_class=cls.course_class) }}">Visualizar marcações</a></button>
+                <button onclick="copyToClipboard('{{ URL_ATTEND }}/{{ cls.unique_link }}')" class="btn btn-sm btn-outline-dark mt-2">Copiar Link Aluno</button>
+                <button class="btn btn-sm btn-outline-dark mt-2"><a href="{{ URL_ATTEND_DATA }}/{{ cls.course_code }}/{{ cls.course_class) }}">Visualizar marcações</a></button>
               </div>
             </div>
             <hr class="dark horizontal my-0">
