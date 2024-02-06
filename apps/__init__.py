@@ -8,7 +8,12 @@ from flask import Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
+# Import dotenv to load environment variables
+from dotenv import load_dotenv
 
+# Assuming your .env file is in the same directory as this script, or specify the path explicitly
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path)
 
 db = SQLAlchemy()
 login_manager = LoginManager()

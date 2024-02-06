@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from flask import render_template, request, redirect, url_for, jsonify, Response, flash
+from flask import render_template, request, redirect, url_for, jsonify, Response
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 from apps import db
@@ -56,7 +56,6 @@ def add_class():
         new_class = Class(name=class_name, secret_code=secret_code, course_code=course_code, course_class=course_class)
         db.session.add(new_class)
         db.session.commit()
-        flash('Turma adicionada com sucesso!', 'success')
         return redirect(url_for('home_blueprint.index'))                
     return render_template('home/add_class.html', segment='add_class')
 
@@ -64,6 +63,8 @@ def add_class():
 @blueprint.route('/attend/<unique_link>', methods=['GET', 'POST'])
 def attend(unique_link):
     course = Class.query.filter_by(unique_link=unique_link).first_or_404()
+    messages = {}  # Initialize an empty message
+
     if request.method == 'POST':
         matricula = request.form['matricula']
         email = request.form['email']  # Assuming you want to capture the email
@@ -72,12 +73,12 @@ def attend(unique_link):
             attendance = Attendance(course_code=course.course_code, course_class=course.course_class, emp=1, matricula=matricula, email=email)
             db.session.add(attendance)
             db.session.commit()
-            # Format the response as needed
-            flash('Registro feito com sucesso!', 'success')
-            #return jsonify({"message": "Attendance registered successfully"})
+            messages['success'] = 'Registro feito com sucesso!'
         else:
-            return jsonify({"error": "Invalid secret code"}), 400
-    return render_template('/home/attendance_form.html', course=course)
+            messages['error'] = 'Código secreto inválido.'
+            # Note: For API-like responses, consider handling errors differently
+
+    return render_template('/home/attendance_form.html', course=course, messages=messages)
 
 @blueprint.route('/attendance_data/<course_code>/<course_class>')
 @login_required

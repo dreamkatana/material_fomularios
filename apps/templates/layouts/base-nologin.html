@@ -43,18 +43,10 @@
  
 
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  
 
-    {% block content %}
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, message in messages %}
-              <div class="alert alert-{{ category }}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-    {% endblock content %}
+
+    {% block content %}{% endblock content %}
 
   </main>
 

@@ -56,6 +56,18 @@
     </div>
   </div>
 </div>
+{% if messages.get('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ messages['success'] }}
+    </div>
+{% endif %}
+{% if messages.get('error') %}
+    <div class="alert alert-danger" role="alert">
+        {{ messages['error'] }}
+    </div>
+{% endif %}
+
+
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE -->
