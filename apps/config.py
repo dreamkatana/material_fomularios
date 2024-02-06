@@ -17,7 +17,8 @@ class Config(object):
     URL_LOGOUT = os.getenv('URL_LOGOUT', 'https://servicos.educorp.unicamp.br/frequencia/logout')
     URL_INDEX = os.getenv('URL_INDEX', 'https://servicos.educorp.unicamp.br/frequencia/index')
     URL_ATTEND = os.getenv('URL_ATTEND', 'https://servicos.educorp.unicamp.br/frequencia/attend')
-    URL_ATTEND_DATA = os.getenv('URL_ATTEND_DATA', 'https://servicos.educorp.unicamp.br/frequencia/attendance_data')
+    URL_ATTEND_DATA = os.getenv('URL_ATTEND_DATA', '/frequencia/attendance_data')
+    URL_ATTEND_DATA_CSV = os.getenv('URL_ATTEND_DATA_CSV', 'https://servicos.educorp.unicamp.br/frequencia/export_attendance_csv')
   
 
     # Set up the App SECRET_KEY
