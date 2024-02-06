@@ -25,7 +25,7 @@ def route_default():
 
 # Login & Registration
 
-@blueprint.route('/frequencia/login', methods=['GET', 'POST'])
+@blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm(request.form)
     if 'login' in request.form:
@@ -54,7 +54,7 @@ def login():
     return redirect(url_for('home_blueprint.index'))
 
 
-@blueprint.route('/frequencia/register', methods=['GET', 'POST'])
+@blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     create_account_form = CreateAccountForm(request.form)
     if 'register' in request.form:
@@ -95,7 +95,7 @@ def register():
         return render_template('accounts/register.html', form=create_account_form)
 
 
-@blueprint.route('/frequencia/logout')
+@blueprint.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('authentication_blueprint.login'))

@@ -6,9 +6,6 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 from flask import Flask
 from flask_login import LoginManager
-from flask_talisman import Talisman
-from werkzeug.middleware.proxy_fix import ProxyFix
-
 from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 # Import dotenv to load environment variables

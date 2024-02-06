@@ -12,7 +12,7 @@ class Config(object):
     #PREFERRED_URL_SCHEME = 'https'
 
     # Assets Management
-    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')  
+    ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/frequencia/static/assets')  
     
     # Set up the App SECRET_KEY
     SECRET_KEY  = os.getenv('SECRET_KEY', None)
