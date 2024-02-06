@@ -8,6 +8,8 @@ import os, random, string
 class Config(object):
 
     basedir = os.path.abspath(os.path.dirname(__file__))
+    SERVER_NAME = 'servicos.educorp.unicamp.br'
+    PREFERRED_URL_SCHEME = 'https'
 
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')  
@@ -57,7 +59,8 @@ class Config(object):
     
 class ProductionConfig(Config):
     DEBUG = False
-
+    SERVER_NAME = 'servicos.educorp.unicamp.br'
+    PREFERRED_URL_SCHEME = 'https'
     # Security
     SESSION_COOKIE_HTTPONLY = True
     REMEMBER_COOKIE_HTTPONLY = True
