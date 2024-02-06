@@ -14,7 +14,7 @@ from itertools import cycle
 import csv
 
 
-@blueprint.route('/frequencia/index')
+@blueprint.route('/index')
 @login_required
 def index():
     classes = Class.query.all()
@@ -45,7 +45,7 @@ def index():
 
     return render_template('home/index.html', segment='index', classes=classes, attendance_dict=attendance_dict)
 
-@blueprint.route('/frequencia/add_class', methods=['GET', 'POST'])
+@blueprint.route('/add_class', methods=['GET', 'POST'])
 @login_required
 def add_class():
     if request.method == 'POST':
@@ -60,7 +60,7 @@ def add_class():
     return render_template('home/add_class.html', segment='add_class')
 
 
-@blueprint.route('/frequencia/attend/<unique_link>', methods=['GET', 'POST'])
+@blueprint.route('/attend/<unique_link>', methods=['GET', 'POST'])
 def attend(unique_link):
     course = Class.query.filter_by(unique_link=unique_link).first_or_404()
     messages = {}  # Initialize an empty message
@@ -80,13 +80,13 @@ def attend(unique_link):
 
     return render_template('/home/attendance_form.html', course=course, messages=messages)
 
-@blueprint.route('/frequencia/attendance_data/<course_code>/<course_class>')
+@blueprint.route('/attendance_data/<course_code>/<course_class>')
 @login_required
 def filtered_attendance_data(course_code, course_class):
     attendances = Attendance.query.filter_by(course_code=course_code, course_class=course_class).all()
     return render_template('home/attendance_data.html', attendances=attendances, course_code=course_code, course_class=course_class)
 
-@blueprint.route('/frequencia/export_attendance_csv/<course_code>/<course_class>')
+@blueprint.route('/export_attendance_csv/<course_code>/<course_class>')
 @login_required
 def export_attendance_csv(course_code, course_class):
     # Filter attendance records by course_code and course_class
@@ -117,7 +117,7 @@ def export_attendance_csv(course_code, course_class):
     # Generate the CSV file
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": f"attachment;filename=attendance_data_{course_code}_{course_class}.csv"})
 
-@blueprint.route('/frequencia/<template>')
+@blueprint.route('/<template>')
 @login_required
 def route_template(template):
 

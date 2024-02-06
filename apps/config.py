@@ -13,6 +13,8 @@ class Config(object):
 
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/frequencia/static/assets')  
+    URL_ADDCLASS = os.getenv('URL_ADDCLASS', 'https://servicos.educorp.unicamp.br/frequencia/add_class')
+    URL_LOGOUT = os.getenv('URL_LOGOUT', 'https://servicos.educorp.unicamp.br/frequencia/logout')
     
     # Set up the App SECRET_KEY
     SECRET_KEY  = os.getenv('SECRET_KEY', None)
