@@ -511,7 +511,9 @@
   // Copy to Clipboard Function
   function copyToClipboard(text) {
     // Generates the full URL including the domain
-    const fullPath = window.location.origin + text;
+    //const fullPath = window.location.origin + text;
+    const fullPath = text;
+
     
     navigator.clipboard.writeText(fullPath).then(function() {
       alert("Full link copied to clipboard");
