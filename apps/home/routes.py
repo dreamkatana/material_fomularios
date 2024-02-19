@@ -9,23 +9,28 @@ from flask_login import login_required
 from jinja2 import TemplateNotFound
 from apps import db
 from apps.authentication.models import Class, Attendance
-from io import StringIO
+from io import StringIO, BytesIO
 from itertools import cycle
 import csv
-
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from datetime import datetime
+import random
+import string
 
 @blueprint.route('/index')
 @login_required
 def index():
-    classes = Class.query.all()
+    classes = Class.query.filter_by(archived=False).all()
     class_attendance_counts = db.session.query(
         Class.course_code,
         Class.course_class,
         db.func.count(Attendance.matricula)
-    ).outerjoin(
+    ).join(
         Attendance,
-        db.and_(Class.course_code == Attendance.course_code, Class.course_class == Attendance.course_class)
-    ).group_by(Class.course_code, Class.course_class).all()
+        db.and_(Class.course_code == Attendance.course_code, Class.course_class == Attendance.course_class),
+        isouter=True
+    ).filter(Class.archived == False).group_by(Class.course_code, Class.course_class).all()
 
     # Convert class_attendance_counts to a dictionary for easy access in the template
     attendance_dict = {(course_code, course_class): count for course_code, course_class, count in class_attendance_counts}
@@ -50,7 +55,9 @@ def index():
 def add_class():
     if request.method == 'POST':
         class_name = request.form['name']
-        secret_code = request.form['secret']
+        #generate a unique secret code 4 to 8 digits long, including numbers and letter
+        secret_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
+        #secret_code = request.form['secret']
         course_code = request.form['course_code']
         course_class = request.form['course_class']
         new_class = Class(name=class_name, secret_code=secret_code, course_code=course_code, course_class=course_class)
@@ -74,6 +81,23 @@ def attend(unique_link):
             db.session.add(attendance)
             db.session.commit()
             messages['success'] = 'Registro feito com sucesso!'
+            # Generate PDF
+            # Obter data e hora atual
+            agora = datetime.now()
+            hora_atual = agora.strftime("%Y-%m-%d %H:%M:%S")
+
+            pdf_buffer = BytesIO()
+            c = canvas.Canvas(pdf_buffer, pagesize=letter)
+            c.drawString(100, 750, f"Confirmação de Presença para {request.form['course_name']}")
+            c.drawString(100, 735, f"Data e Hora: {hora_atual}")
+            c.drawString(100, 720, f"Email do Estudante: {request.form['email']}")
+            c.drawString(100, 705, f"Matrícula: {request.form['matricula']}")
+            c.drawString(100, 690, f"Link Único: {unique_link}")
+            c.save()
+
+            # Return PDF
+            pdf_buffer.seek(0)
+            return Response(pdf_buffer, mimetype='application/pdf', headers={'Content-Disposition': 'attachment;filename=attendance_confirmation.pdf'})
         else:
             messages['error'] = 'Código secreto inválido.'
             # Note: For API-like responses, consider handling errors differently
@@ -117,6 +141,59 @@ def export_attendance_csv(course_code, course_class):
     # Generate the CSV file
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": f"attachment;filename=attendance_data_{course_code}_{course_class}.csv"})
 
+@blueprint.route('/archive_class/<int:class_id>', methods=['POST'])
+@login_required
+def archive_class(class_id):
+    class_to_archive = Class.query.get_or_404(class_id)
+    class_to_archive.archived = True
+    db.session.commit()
+    return jsonify({'success': 'Class archived successfully'}), 200
+
+@blueprint.route('/archived')
+@login_required
+def archived_classes():
+    classes = Class.query.filter_by(archived=True).all()
+    class_attendance_counts = db.session.query(
+        Class.course_code,
+        Class.course_class,
+        db.func.count(Attendance.matricula)
+    ).join(
+        Attendance,
+        db.and_(Class.course_code == Attendance.course_code, Class.course_class == Attendance.course_class),
+        isouter=True
+    ).filter(Class.archived == True).group_by(Class.course_code, Class.course_class).all()
+
+    # Convert class_attendance_counts to a dictionary for easy access in the template
+    attendance_dict = {(course_code, course_class): count for course_code, course_class, count in class_attendance_counts}
+
+    return render_template('home/archived_classes.html', classes=classes, attendance_dict=attendance_dict)
+
+@blueprint.route('/delete_class/<int:class_id>', methods=['POST'])
+@login_required
+def delete_class(class_id):
+    try:
+        # Query to find the class with the given ID
+        class_to_delete = Class.query.get_or_404(class_id)
+
+        # Delete related attendance records
+        Attendance.query.filter_by(course_code=class_to_delete.course_code, course_class=class_to_delete.course_class).delete()
+
+        # Delete the class itself
+        db.session.delete(class_to_delete)
+
+        # Commit the changes to the database
+        db.session.commit()
+
+        # Return a success message (adjust according to your frontend needs)
+        print(f'Class and related attendance records successfully deleted.')
+        return redirect(url_for('home_blueprint.index'))
+    except Exception as e:
+        db.session.rollback()
+        # Log the error and return an error message
+        # Adjust logging according to your application's logging setup
+        print(f'Error deleting class with ID {class_id}: {e}')
+        return render_template('home/page-403.html'), 403
+    
 @blueprint.route('/<template>')
 @login_required
 def route_template(template):

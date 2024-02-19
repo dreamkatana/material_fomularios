@@ -19,7 +19,9 @@ class Config(object):
     URL_ATTEND = os.getenv('URL_ATTEND', 'https://servicos.educorp.unicamp.br/frequencia/attend')
     URL_ATTEND_DATA = os.getenv('URL_ATTEND_DATA', '/frequencia/attendance_data')
     URL_ATTEND_DATA_CSV = os.getenv('URL_ATTEND_DATA_CSV', 'https://servicos.educorp.unicamp.br/frequencia/export_attendance_csv')
-  
+    URL_ARCHIVE = os.getenv('URL_ARCHIVE', 'https://servicos.educorp.unicamp.br/frequencia/archive_class')
+    URL_ARCHIVED_CLASSES = os.getenv('URL_ARCHIVED_CLASSES', 'https://servicos.educorp.unicamp.br/frequencia/archived_classes')
+    URL_DELETE = os.getenv('URL_DELETE', 'https://servicos.educorp.unicamp.br/frequencia/delete_class')
 
     # Set up the App SECRET_KEY
     SECRET_KEY  = os.getenv('SECRET_KEY', None)

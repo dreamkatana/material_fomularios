@@ -64,7 +64,10 @@ def create_app(config):
             'URL_INDEX': app.config.get('URL_INDEX'),
             'URL_ATTEND': app.config.get('URL_ATTEND'),
             'URL_ATTEND_DATA': app.config.get('URL_ATTEND_DATA'),
-            'URL_ATTEND_DATA_CSV': app.config.get('URL_ATTEND_DATA_CSV')
+            'URL_ATTEND_DATA_CSV': app.config.get('URL_ATTEND_DATA_CSV'),
+            'URL_ARCHIVE': app.config.get('URL_ARCHIVE'),
+            'URL_ARCHIVED_CLASSES': app.config.get('URL_ARCHIVED_CLASSES'),
+            'URL_DELETE': app.config.get('URL_DELETE'),
         }
     
     register_extensions(app)

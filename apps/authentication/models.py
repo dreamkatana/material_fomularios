@@ -56,6 +56,7 @@ class Class(db.Model):
     course_code = db.Column(db.Integer, nullable=True)
     course_class = db.Column(db.String(20), nullable=True)
     unique_link = db.Column(db.String(100), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
+    archived = db.Column(db.Boolean, default=False, nullable=False)
 
 class Attendance(db.Model):
     __tablename__ = 'attendance'

@@ -1,0 +1,33 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Arquivados {% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        {% for cls in classes %}
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2 position-relative">  
+              <div class="icon icon-lg icon-shape bg-gradient-secondary shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+                <i class="material-icons opacity-10">archive</i>
+              </div>
+            </div> <!-- Close card-header -->
+            <div class="card-body">
+              <div class="text-end pt-1">
+                <h6 class="text-sm mb-0 text-capitalize">{{ cls.name }}</h6>
+                <p class="text-sm">CURSO: {{ cls.course_code }} - TURMA: {{ cls.course_class }}</p>
+                <p class="text-sm">SECRET CODE: {{ cls.secret_code }}</p>         
+                <button class="btn btn-sm btn-outline-dark mt-2"><a href="{{ URL_ATTEND_DATA }}/{{ cls.course_code }}/{{ cls.course_class }}">Visualizar marcações</a></button>
+              </div>
+            </div> <!-- Close card-body -->
+            <div class="card-footer p-3">
+              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">{{ attendance_dict.get((cls.course_code, cls.course_class), 0) }} </span>marcações</p>
+            </div> <!-- Close card-footer -->
+          </div> <!-- Close card -->
+        </div>
+      {% endfor %}    
+    </div>
+    {% include 'includes/footer.html' %}
+</div>
+{% endblock content %}

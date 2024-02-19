@@ -4,6 +4,26 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ .btn-archive {
+  background-color: #dc3545; /* Bootstrap's `.bg-danger` color */
+  color: white;
+  border: none; /* Removes the border */
+}
+
+.btn-archive:hover {
+  background-color: #c82333; /* A darker shade of red for hover state */
+  color: white; /* Ensures text color remains white */
+}
+
+/* Optional: Adjust the shadow color on hover if desired */
+.btn-archive.shadow-dark:hover {
+  box-shadow: 0 0.5rem 1rem rgba(220, 53, 69, .5); /* A red shadow */
+}
+
+.card-body, .card-header, .card-footer {
+  text-align: left; /* Ensure text alignment is to the left */
+}
+
 :root {
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;
