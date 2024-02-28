@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %}Attendance Data for {{ course_code }} - {{ course_class }}{% endblock %}
+{% block title %}Frequência Geral{% endblock %}
 
 <!-- Specific Page CSS goes HERE -->
 {% block stylesheets %}
@@ -41,7 +41,7 @@
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Registros para o Curso: {{ course_code }}, Class: {{ course_class }}</h6>
+                        <h6 class="text-white text-capitalize ps-3">Registros de frequência</h6>
                     </div>
                 </div>
                 <!-- Inserindo o formulário de filtragem aqui -->
@@ -77,7 +77,7 @@
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <div class="p-3">
-                            <a href="{{ URL_ATTEND_DATA_CSV }}/{{ course_code }}/{{ course_class }}" class="download-btn">Download CSV</a>
+                            <a href="{{ URL_ATTEND_DATA_CSV_ALL }}" class="download-btn">Download CSV</a>
                         </div>
                         <table class="table table-striped">
                             <thead>

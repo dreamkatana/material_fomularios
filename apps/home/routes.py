@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from apps.home import blueprint
 from flask import render_template, request, redirect, url_for, jsonify, Response
-from flask_login import login_required
+from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
 from apps import db
 from apps.authentication.models import Class, Attendance
@@ -15,12 +15,16 @@ import csv
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from datetime import datetime
+from datetime import timedelta
 import random
 import string
+import pytz
+
 
 @blueprint.route('/index')
 @login_required
 def index():
+    x = current_user.username
     classes = Class.query.filter_by(archived=False).all()
     class_attendance_counts = db.session.query(
         Class.course_code,
@@ -83,7 +87,9 @@ def attend(unique_link):
             messages['success'] = 'Registro feito com sucesso!'
             # Generate PDF
             # Obter data e hora atual
-            agora = datetime.now()
+            # Set timezone to your country's timezone
+            tz = pytz.timezone('America/Sao_Paulo')
+            agora = datetime.now(tz)
             hora_atual = agora.strftime("%Y-%m-%d %H:%M:%S")
 
             pdf_buffer = BytesIO()
@@ -109,6 +115,88 @@ def attend(unique_link):
 def filtered_attendance_data(course_code, course_class):
     attendances = Attendance.query.filter_by(course_code=course_code, course_class=course_class).all()
     return render_template('home/attendance_data.html', attendances=attendances, course_code=course_code, course_class=course_class)
+
+@blueprint.route('/attendance_data2')
+@login_required
+def filtered_attendance_data2():
+    # Obter parâmetros de query string
+    course_code = request.args.get('course_code')
+    course_class = request.args.get('course_class')
+    period_start = request.args.get('period_start')
+    period_end = request.args.get('period_end')
+    user_email = request.args.get('user_email')
+
+    # Construir a query base
+    query = Attendance.query
+
+    # Aplicar filtros conforme necessário
+    if course_code:
+        query = query.filter_by(course_code=course_code)
+    if course_class:
+        query = query.filter_by(course_class=course_class)
+    if period_start and period_end:
+        start_date = datetime.strptime(period_start, '%Y-%m-%d')
+        # Adicionar 1 dia à data final para incluir registros do dia
+        end_date = datetime.strptime(period_end, '%Y-%m-%d') + timedelta(days=1)
+        query = query.filter(Attendance.date.between(start_date, end_date))
+    if user_email:
+        query = query.filter_by(email=user_email)
+
+    attendances = query.all()
+
+    return render_template('home/attendance_data_todos.html', attendances=attendances, course_code=course_code, course_class=course_class)
+
+@blueprint.route('/export_attendance_csv_all', methods=['GET'])
+@login_required
+def export_attendance_csv_all():
+    # Recupera os parâmetros de filtro da query string
+    course_code = request.args.get('course_code')
+    course_class = request.args.get('course_class')
+    period_start = request.args.get('period_start')
+    period_end = request.args.get('period_end')
+    user_email = request.args.get('user_email')
+
+    # Constrói a consulta base com possíveis filtros
+    query = Attendance.query
+    
+    if course_code:
+        query = query.filter_by(course_code=course_code)
+    if course_class:
+        query = query.filter_by(course_class=course_class)
+    if user_email:
+        query = query.filter_by(email=user_email)
+    if period_start:
+        query = query.filter(Attendance.date >= datetime.strptime(period_start, '%Y-%m-%d'))
+    if period_end:
+        period_end = datetime.strptime(period_end, '%Y-%m-%d') + timedelta(days=1)
+        query = query.filter(Attendance.date <= datetime.strptime(period_end, '%Y-%m-%d'))
+
+    attendances = query.all()
+
+    def generate():
+        data = StringIO()
+        csv_writer = csv.writer(data)
+
+        # Escreve o cabeçalho
+        csv_writer.writerow(["01", "CURSO", "TURMA", "EMP", "MATRICULA", "DATA"])
+
+        # Escreve as linhas de dados
+        for attendance in attendances:
+            csv_writer.writerow([
+                "02",
+                attendance.course_code,
+                attendance.course_class,
+                "1",  # EMP é sempre 1
+                attendance.matricula,
+                attendance.date.strftime('%d/%m/%Y')  # Formata a data
+            ])
+            data.seek(0)
+            yield data.read()
+            data.seek(0)
+            data.truncate(0)
+
+    # Gera o arquivo CSV
+    return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": "attachment;filename=attendance_data_filtered.csv"})
 
 @blueprint.route('/export_attendance_csv/<course_code>/<course_class>')
 @login_required
@@ -141,9 +229,13 @@ def export_attendance_csv(course_code, course_class):
     # Generate the CSV file
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": f"attachment;filename=attendance_data_{course_code}_{course_class}.csv"})
 
+
 @blueprint.route('/archive_class/<int:class_id>', methods=['POST'])
 @login_required
 def archive_class(class_id):
+    #block specific users
+    if current_user.username != 'educorp':
+        return render_template('home/page-403.html'), 403
     class_to_archive = Class.query.get_or_404(class_id)
     class_to_archive.archived = True
     db.session.commit()
@@ -171,6 +263,9 @@ def archived_classes():
 @blueprint.route('/delete_class/<int:class_id>', methods=['POST'])
 @login_required
 def delete_class(class_id):
+    #block specific users
+    if current_user.username != 'educorp':
+        return render_template('home/page-403.html'), 403
     try:
         # Query to find the class with the given ID
         class_to_delete = Class.query.get_or_404(class_id)

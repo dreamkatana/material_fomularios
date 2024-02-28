@@ -7,6 +7,8 @@ import uuid
 from flask_login import UserMixin
 
 from apps import db, login_manager
+import pytz
+from datetime import datetime
 
 from apps.authentication.util import hash_pass
 
@@ -66,4 +68,4 @@ class Attendance(db.Model):
     emp = db.Column(db.Integer)
     matricula = db.Column(db.Integer)
     email = db.Column(db.String(100))
-    date = db.Column(db.DateTime, default=db.func.current_timestamp())
+    date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('America/Sao_Paulo')))

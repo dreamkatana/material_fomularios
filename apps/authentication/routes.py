@@ -7,7 +7,8 @@ from flask import render_template, redirect, request, url_for
 from flask_login import (
     current_user,
     login_user,
-    logout_user
+    logout_user,
+    login_required
 )
 
 from apps import db, login_manager
@@ -55,6 +56,7 @@ def login():
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
+
 def register():
     create_account_form = CreateAccountForm(request.form)
     if 'register' in request.form:
@@ -66,7 +68,7 @@ def register():
         user = Users.query.filter_by(username=username).first()
         if user:
             return render_template('accounts/register.html',
-                                   msg='Username already registered',
+                                   msg='Usuário já registrado',
                                    success=False,
                                    form=create_account_form)
 
@@ -74,7 +76,7 @@ def register():
         user = Users.query.filter_by(email=email).first()
         if user:
             return render_template('accounts/register.html',
-                                   msg='Email already registered',
+                                   msg='Email já registrado',
                                    success=False,
                                    form=create_account_form)
 
@@ -87,7 +89,7 @@ def register():
         logout_user()
         
         return render_template('accounts/register.html',
-                               msg='Account created successfully.',
+                               msg='Conta criada com sucesso.',
                                success=True,
                                form=create_account_form)
 
