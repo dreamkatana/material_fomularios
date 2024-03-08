@@ -175,7 +175,7 @@ def export_attendance_csv_all():
 
     def generate():
         data = StringIO()
-        csv_writer = csv.writer(data)
+        csv_writer = csv.writer(data, delimiter=';')
 
         # Escreve o cabeçalho
         csv_writer.writerow(["01", "CURSO", "TURMA", "EMP", "MATRICULA", "DATA"])
@@ -206,7 +206,7 @@ def export_attendance_csv(course_code, course_class):
 
     def generate():
         data = StringIO()
-        csv_writer = csv.writer(data)
+        csv_writer = csv.writer(data, delimiter=';')
 
         # Write the header
         csv_writer.writerow(["01", "CURSO", "TURMA", "EMP", "MATRICULA", "DATA"])
