@@ -1,0 +1,35 @@
+Identificação do servidor:
+ Matrícula: Busca do Banco
+ Nome completo: Busca do Banco
+ Unidade/Órgão: Busca do Banco
+ Data de Nascimento: Busca do Banco
+ RG: Busca do Banco
+ CPF: Busca do Banco
+ Cargo: Busca do Banco
+ Vínculo: Busca do Banco
+ E-mail: Entrada do usuário
+ Ramal: Busca do Banco
+
+
+Informações sobre o Evento/Curso:
+ Tipo: 1-Evento Nacional, 2-Evento Internacional, 3-Curso de Atualização
+ Carga horária (em horas)
+ Atualização
+ Apresentação de pôster
+ Apresentação oral
+ Ambos (apresentação de pôster e oral)
+
+ Título completo do evento/curso (texto)
+ Entidade responsável pela organização (texto)
+ Local do evento/curso:
+o País (se possível, opções) – se Nacional, não abre esta caixa
+o Estado/Província (se possível, opções)
+o Município/Comuna (se possível, opções)
+ Telefone da organização do evento (texto)
+ E-mail da organização do evento (texto)
+ Período do curso/evento:
+o Início (data)
+o Término (data)
+ Data e horário previsto de partida/chegada:
+o Ida (dia e horário)
+o Volta (dia e horário)
