@@ -1255,7 +1255,8 @@ input[type="button"]:focus {
   border-color: #7A9E9F;
 }
 .wizard-card[data-color="azure"] .choice.active .card-checkboxes {
-  color: #7A9E9F;
+  color: #0f999e;
+  border: 1px solid rgb(30, 184, 43);
 }
 .wizard-card[data-color="azure"] .wizard-navigation .progress-bar {
   background-color: #7A9E9F;
