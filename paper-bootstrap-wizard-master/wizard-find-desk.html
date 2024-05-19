@@ -106,6 +106,14 @@
 												Informações sobre o Evento/Curso
 											</a>
 										</li>
+										<li>
+											<a href="#complement" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-pencil"></i>
+												</div>
+												Complemento Evento/Curso
+											</a>
+										</li>
 			                            <li>
 											<a href="#description" data-toggle="tab">
 												<div class="icon-circle">
@@ -157,12 +165,12 @@
 		                                <h5 class="info-text">Tipo? </h5>
 		                                <div class="row">
 		                                    <div>
-		                                        <div class="col-sm-4 col-sm-offset-2">
+		                                        <div class="col-sm-4 ">
 													<div class="choice" data-toggle="wizard-checkbox">
 		                                                <input type="checkbox" name="jobb" value="Design">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-time"></i>
-															<p>Atualização&nbsp;&nbsp;&nbsp;</p>
+															<p>Evento Nacional&nbsp;&nbsp;&nbsp;</p>
 		                                                </div>
 		                                            </div>
 		                                        </div>
@@ -171,16 +179,7 @@
 		                                                <input type="checkbox" name="jobb" value="Design">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-calendar"></i>
-															<p>Apresentação pôster</p>
-		                                                </div>
-		                                            </div>
-		                                        </div>
-												<div class="col-sm-4 col-sm-offset-2">
-													<div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="jobb" value="Design">
-		                                                <div class="card card-checkboxes card-hover-effect">
-		                                                    <i class="ti-calendar"></i>
-															<p>Apresentação oral&nbsp;&nbsp;&nbsp;</p>
+															<p>Evento Internacional</p>
 		                                                </div>
 		                                            </div>
 		                                        </div>
@@ -189,11 +188,35 @@
 		                                                <input type="checkbox" name="jobb" value="Design">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-calendar"></i>
-															<p>Ambos (pôster e oral)</p>
+															<p>Curso de Atualização</p>
 		                                                </div>
 		                                            </div>														
 		                                        </div>
 		                                    </div>
+			
+											<div class="col-sm-5 col-sm-offset-1">
+												<div class="form-group">
+													<label for="matricula">Carga horária:</label>
+													<input type="number" class="form-control" id="tit_curso" name="tit_curso">
+												</div>
+											</div>
+											<div class="col-sm-5">
+											<div class="form-group">
+												<label for="pais">Opções curso/evento:</label>
+												<select class="form-control" id="pais" name="pais">
+													<option value="">Selecione a opção</option>
+													<option value="1">Atualização</option>
+													<option value="2">Apresentação de pôster</option>
+													<option value="3">Apresentação oral</option>
+													<option value="4">Ambos</option>							
+												</select>
+											</div>
+										</div>
+		                                </div>
+		                            </div>
+									<div class="tab-pane" id="complement">
+		                                <div class="row">
+											<h5 class="info-text"> Descrição </h5>
 											<div class="col-sm-5 col-sm-offset-1">
 												<div class="form-group">
 													<label for="tit_curso">Título completo do evento/curso:</label>
@@ -228,8 +251,92 @@
 													<!-- Adicione mais opções para outros países conforme necessário -->
 												</select>
 											</div>
-										</div>
 		                                </div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="estado">Estado/Província:</label>
+												<select class="form-control" id="estado" name="estado">
+													<option value="">Selecione o estado</option>
+													<option value="AC">Acre</option>
+													<option value="AL">Alagoas</option>
+													<option value="AP">Amapá</option>
+													<option value="AM">Amazonas</option>
+													<option value="BA">Bahia</option>
+													<option value="CE">Ceará</option>
+													<option value="DF">Distrito Federal</option>
+													<option value="ES">Espírito Santo</option>
+													<option value="GO">Goiás</option>
+													<option value="MA">Maranhão</option>
+													<option value="MT">Mato Grosso</option>
+													<option value="MS">Mato Grosso do Sul</option>
+													<option value="MG">Minas Gerais</option>
+													<option value="PA">Pará</option>
+													<option value="PB">Paraíba</option>
+													<option value="PR">Paraná</option>
+													<option value="PE">Pernambuco</option>
+													<option value="PI">Piauí</option>
+													<option value="RJ">Rio de Janeiro</option>
+													<option value="RN">Rio Grande do Norte</option>
+													<option value="RS">Rio Grande do Sul</option>
+													<option value="RO">Rondônia</option>
+													<option value="RR">Roraima</option>
+													<option value="SC">Santa Catarina</option>
+													<option value="SP">São Paulo</option>
+													<option value="SE">Sergipe</option>
+													<option value="TO">Tocantins</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="entidade"> Município/Comunidade:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Telefone:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">E-mail do evento:</label>
+												<input type="email" class="form-control" id="tit_curso" name="tit_curso">
+											</div>
+										</div>
+										</div>
+										<h5 class="info-text">Período do curso/evento</h5>
+									<div class="row">
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Data Início:</label>
+												<input type="date" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Data Fim:</label>
+												<input type="date" class="form-control" id="tit_curso" name="tit_curso">
+											</div>
+										</div>
+										</div>
+										<h5 class="info-text">Data e horário previsto de partida/chegada</h5>
+									<div class="row">
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Data Início:</label>
+												<input type="date" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Data Fim:</label>
+												<input type="date" class="form-control" id="tit_curso" name="tit_curso">
+											</div>
+										</div>
+										
+										
 		                            </div>
 		                            <div class="tab-pane" id="description">
 		                                <div class="row">
