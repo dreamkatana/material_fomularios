@@ -54,9 +54,8 @@ def index():
 
     return render_template('home/index.html', segment='index', classes=classes, attendance_dict=attendance_dict)
 
-@blueprint.route('/add_class', methods=['GET', 'POST'])
-@login_required
-def add_class():
+@blueprint.route('/form_apoio', methods=['GET', 'POST'])
+def form_apoio():
     if request.method == 'POST':
         class_name = request.form['name']
         #generate a unique secret code 4 to 8 digits long, including numbers and letter
@@ -68,7 +67,7 @@ def add_class():
         db.session.add(new_class)
         db.session.commit()
         return redirect(url_for('home_blueprint.index'))                
-    return render_template('home/add_class.html', segment='add_class')
+    return render_template('home/form_apoio.html', segment='form_apoio')
 
 
 @blueprint.route('/attend/<unique_link>', methods=['GET', 'POST'])
