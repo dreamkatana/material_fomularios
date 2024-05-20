@@ -1,66 +1,608 @@
-{% extends "layouts/base.html" %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<link rel="apple-touch-icon" sizes="76x76" href="{{ ASSETS_ROOT }}/img/apple-icon.png" />
+	<link rel="icon" type="image/png" href="{{ ASSETS_ROOT }}/img/favicon.png" />
+	<title>Solicitação de apoio Educorp</title>
 
-{% block title %} Adicionar Nova Turma {% endblock %} 
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}
-<style>
-    .form-control {
-      border: 1px solid #ced4da; /* Adds a border to the input */
-      background-color: #f8f9fa; /* A light grey background color */
-      box-shadow: inset 0 1px 2px rgba(0,0,0,.075); /* A subtle inner shadow to add depth */
-      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out; /* Smooth transition for focus effect */
-    }
-    .form-control:focus {
-      border-color: #80bdff; /* Changes border color on focus */
-      outline: 0; /* Removes the default outline */
-      box-shadow: inset 0 1px 2px rgba(0,0,0,.075), 0 0 5px rgba(128, 189, 255, .5); /* Adds a glow effect on focus */
-    }
-    .form-label {
-      color: #495057; /* Making the label text a bit darker for contrast */
-      font-weight: 600; /* Optional: Makes the label text bold */
-    }
-  </style>
-  {% endblock stylesheets %}
+	<!-- Canonical SEO -->
+    <link rel="canonical" href="https://servicos.educorp.unicamp.br"/>
 
-{% block content %}
-<div class="container-fluid py-4">
-  <div class="row">
-    <div class="col-12">
-      <div class="card my-4">
-        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-          <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-            <h6 class="text-white text-capitalize ps-3">Adicionar Nova Turma</h6>
-          </div>
-        </div>
-        <div class="card-body px-0 pb-2">
-          <div class="table-responsive p-0">
-            <form method="post" class="p-3">
-              <div class="mb-3">
-                <label for="name" class="form-label">Nome do Curso:</label>
-                <input type="text" class="form-control" id="name" name="name">
-              </div>
-              <div class="mb-3">
-                <label for="course_code" class="form-label">Código do Curso:</label>
-                <input type="text" class="form-control" id="course_code" name="course_code">
-              </div>
-              <div class="mb-3">
-                <label for="course_class" class="form-label">Código da Turma:</label>
-                <input type="text" class="form-control" id="course_class" name="course_class">
-              </div>
-<!--               <div class="mb-3">
-                <label for="secret" class="form-label">Secret Code:</label>
-                <input type="text" class="form-control" id="secret" name="secret">
-              </div> -->
-              <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock content %}
+    <meta name="keywords" content="apoio educorp, solicitacao">
+    <meta name="description" content="apoio educorp, solicitacao">
 
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Paper Bootstrap Wizard by Creative Tim">
+    <meta itemprop="description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors.">
+    <meta itemprop="image" content="https://s3.amazonaws.com/creativetim_bucket/products/49/opt_pbw_thumbnail.jpg">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@creativetim">
+    <meta name="twitter:title" content="Paper Bootstrap Wizard by Creative Tim">
+    <meta name="twitter:description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors.">
+    <meta name="twitter:creator" content="@creativetim">
+    <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/49/opt_pbw_thumbnail.jpg">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Paper Bootstrap Wizard by Creative Tim | Free Boostrap Wizard" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://demos.creative-tim.com/paper-bootstrap-wizard/wizard-list-place.html" />
+    <meta property="og:image" content="https://s3.amazonaws.com/creativetim_bucket/products/49/opt_pbw_thumbnail.jpg" />
+    <meta property="og:description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors." />
+    <meta property="og:site_name" content="Creative Tim" />
+
+	<!-- CSS Files -->
+    <link href="{{ ASSETS_ROOT }}/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="{{ ASSETS_ROOT }}/css/paper-bootstrap-wizard.css" rel="stylesheet" />
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link href="{{ ASSETS_ROOT }}/css/demo.css" rel="stylesheet" />
+
+	<!-- Fonts and Icons -->
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+	<link href="{{ ASSETS_ROOT }}/css/themify-icons.css" rel="stylesheet">
+	</head>
+
+	<body>
+	<div class="image-container set-full-height" style="background-image: url('{{ ASSETS_ROOT }}/img/paper-3.jpeg')">
+	    <!--   Creative Tim Branding   -->
+	    <a href="https://servicos.educorp.unicamp.br/apoio">
+	         <div class="logo-container">
+	            <div class="logo">
+	                <img style="background-color: white;" src="{{ ASSETS_ROOT }}/img/educorp-logo-semtexto.png">
+	            </div>
+	            <div class="brand">	                
+	            </div>
+	        </div>
+	    </a>
+
+		<!--  Made With Paper Kit  -->
+		<a href="https://servicos.educorp.unicamp.br" class="made-with-pk">
+			<div class="brand">PK</div>
+			<div class="made-with">Educorp <strong>DEV</strong></div>
+		</a>
+
+	    <!--   Big container   -->
+	    <div class="container">
+	        <div class="row">
+		        <div class="col-sm-8 col-sm-offset-2">
+
+		            <!--      Wizard container        -->
+		            <div class="wizard-container">
+		                <div class="card wizard-card" data-color="azure" id="wizard">
+		                    <form method="post">
+		                <!--        You can switch " data-color="azure" "  with one of the next bright colors: "blue", "green", "orange", "red"           -->
+
+		                    	<div class="wizard-header">
+		                        	<h3 class="wizard-title">Formulário e solicitação de apoio.</h3>
+		                        	<!--<p class="category">Educorp</p>  -->
+		                    	</div>
+
+								<div class="wizard-navigation">
+									<div class="progress-with-circle">
+									     <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="3" style="width: 21%;"></div>
+									</div>
+									<ul>
+			                            <li>
+											<a href="#details" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-list"></i>
+												</div>
+												Identificação do servidor
+											</a>
+										</li>
+			                            <li>
+											<a href="#captain" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-briefcase"></i>
+												</div>
+												Informações sobre o Evento/Curso
+											</a>
+										</li>
+										<li>
+											<a href="#complement" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-pencil"></i>
+												</div>
+												Complemento Evento/Curso
+											</a>
+										</li>
+			                            <li>
+											<a href="#auxilio" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-pencil"></i>
+												</div>
+												Auxílio Solicitado
+											</a>
+										</li>
+										<li>
+											<a href="#confimation" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-pencil"></i>
+												</div>
+												Confirmações
+											</a>
+										</li>
+										<li>
+											<a href="#anexos" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="ti-pencil"></i>
+												</div>
+												Anexos
+											</a>
+										</li>
+			                        </ul>
+								</div>
+		                        <div class="tab-content">
+		                            <div class="tab-pane" id="details">
+		                            	<div class="row">
+		                                	<div class="col-sm-12">
+		                                    	<!-- <h5 class="info-text"> Let's start with the basic details</h5> -->
+		                                	</div>
+											<br><br><br><br>
+			                                <div class="col-sm-5 col-sm-offset-1">
+			                                    <div class="form-group">
+													<label for="matricula">Matrícula:</label>
+													<input type="number" class="form-control" id="matricula" name="matricula">
+			                                    </div>
+			                                </div>
+			                                <div class="col-sm-5">
+			                                    <div class="form-group">
+			                                        <label for="email">E-mail institucional (@unicamp):</label>
+                									<input type="email" class="form-control" id="email" name="email">
+			                                    </div>
+			                                </div>	
+		                            	</div>
+		                        	</div>
+		                            <div class="tab-pane" id="captain">
+		                                <h5 class="info-text">Tipo? </h5>
+		                                <div class="row">
+		                                    <div>
+		                                        <div class="col-sm-4 ">
+													<div class="choice" data-toggle="wizard-checkbox">
+		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <div class="card card-checkboxes card-hover-effect">
+		                                                    <i class="ti-time"></i>
+															<p>Evento Nacional&nbsp;&nbsp;&nbsp;</p>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-sm-4">
+													<div class="choice" data-toggle="wizard-checkbox">
+		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <div class="card card-checkboxes card-hover-effect">
+		                                                    <i class="ti-calendar"></i>
+															<p>Evento Internacional</p>
+		                                                </div>
+		                                            </div>
+		                                        </div>
+												<div class="col-sm-4">
+													<div class="choice" data-toggle="wizard-checkbox">
+		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <div class="card card-checkboxes card-hover-effect">
+		                                                    <i class="ti-calendar"></i>
+															<p>Curso de Atualização</p>
+		                                                </div>
+		                                            </div>														
+		                                        </div>
+		                                    </div>
+			
+											<div class="col-sm-5 col-sm-offset-1">
+												<div class="form-group">
+													<label for="matricula">Carga horária:</label>
+													<input type="number" class="form-control" id="tit_curso" name="tit_curso">
+												</div>
+											</div>
+											<div class="col-sm-5">
+											<div class="form-group">
+												<label for="pais">Opções curso/evento:</label>
+												<select class="form-control" id="pais" name="pais">
+													<option value="">Selecione a opção</option>
+													<option value="1">Atualização</option>
+													<option value="2">Apresentação de pôster</option>
+													<option value="3">Apresentação oral</option>
+													<option value="4">Ambos</option>							
+												</select>
+											</div>
+										</div>
+		                                </div>
+		                            </div>
+									<div class="tab-pane" id="complement">
+		                                <div class="row">
+											<h5 class="info-text"> Descrição </h5>
+											<div class="col-sm-5 col-sm-offset-1">
+												<div class="form-group">
+													<label for="tit_curso">Título completo do evento/curso:</label>
+													<input type="text" class="form-control" id="tit_curso" name="tit_curso">
+												</div>
+											</div>
+											<div class="col-sm-5">
+												<div class="form-group">
+													<label for="entidade">Entidade responsável pela organização::</label>
+													<input type="text" class="form-control" id="entidade" name="entidade">
+												</div>
+											</div>
+											<div class="col-sm-5 col-sm-offset-1">
+												<div class="form-group">
+													<label for="matricula">Local do evento/curso:</label>
+													<input type="text" class="form-control" id="tit_curso" name="tit_curso">
+												</div>
+											</div>
+											<div class="col-sm-5">
+											<div class="form-group">
+												<label for="pais">País:</label>
+												<select class="form-control" id="pais" name="pais">
+													<option value="">Selecione o país</option>
+													<option value="Brasil">Brasil</option>
+													<option value="Afghanistan">Afeganistão</option>
+													<option value="Albania">Albânia</option>
+													<option value="Algeria">Argélia</option>
+													<option value="Andorra">Andorra</option>
+													<option value="Angola">Angola</option>
+													<option value="Antigua and Barbuda">Antígua e Barbuda</option>
+													<option value="Argentina">Argentina</option>
+													<!-- Adicione mais opções para outros países conforme necessário -->
+												</select>
+											</div>
+		                                </div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="estado">Estado/Província:</label>
+												<select class="form-control" id="estado" name="estado">
+													<option value="">Selecione o estado</option>
+													<option value="AC">Acre</option>
+													<option value="AL">Alagoas</option>
+													<option value="AP">Amapá</option>
+													<option value="AM">Amazonas</option>
+													<option value="BA">Bahia</option>
+													<option value="CE">Ceará</option>
+													<option value="DF">Distrito Federal</option>
+													<option value="ES">Espírito Santo</option>
+													<option value="GO">Goiás</option>
+													<option value="MA">Maranhão</option>
+													<option value="MT">Mato Grosso</option>
+													<option value="MS">Mato Grosso do Sul</option>
+													<option value="MG">Minas Gerais</option>
+													<option value="PA">Pará</option>
+													<option value="PB">Paraíba</option>
+													<option value="PR">Paraná</option>
+													<option value="PE">Pernambuco</option>
+													<option value="PI">Piauí</option>
+													<option value="RJ">Rio de Janeiro</option>
+													<option value="RN">Rio Grande do Norte</option>
+													<option value="RS">Rio Grande do Sul</option>
+													<option value="RO">Rondônia</option>
+													<option value="RR">Roraima</option>
+													<option value="SC">Santa Catarina</option>
+													<option value="SP">São Paulo</option>
+													<option value="SE">Sergipe</option>
+													<option value="TO">Tocantins</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="entidade"> Município/Comunidade:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Telefone:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">E-mail do evento:</label>
+												<input type="email" class="form-control" id="tit_curso" name="tit_curso">
+											</div>
+										</div>
+									</div>
+										<h5 class="info-text">Período do curso/evento</h5>
+									<div class="row">
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Data Início:</label>
+												<input type="date" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Data Fim:</label>
+												<input type="date" class="form-control" id="tit_curso" name="tit_curso">
+											</div>
+										</div>
+										</div>
+										<h5 class="info-text">Data e horário previsto de partida/chegada</h5>
+									<div class="row">
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Data e hora de início:</label>
+												<input type="datetime-local" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Data Fim:</label>
+												<input type="datetime-local" class="form-control" id="tit_curso" name="tit_curso">
+											</div>
+										</div>
+										
+										
+		                            </div>					
+		                        </div>
+								<div class="tab-pane" id="auxilio">
+									<div class="row">
+										<h5 class="info-text"></h5>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label>Unidade/Órgão e/ou solicitante contribuirá com recursos financeiros?</label>
+												<select class="form-control" id="estado" name="estado">
+													<option value="0">Não</option>
+													<option value="1">Sim</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label>Se sim, qual o valor total da contribuição?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Data limite para a inscrição:</label>
+												<input type="date" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Valor total do apoio:</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>
+										<h5 class="info-text">Demonstrativo de utilização dos recursos de apoio</h5>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade"> Valor da taxa de inscrição:</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Valor do transporte:</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="matricula">Valor total de diárias:</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>						
+										<label class="info-text">Auxílio recebido ou solicitado a outras entidades para o evento (preencher somente se houver auxílio de outra entidade)</label>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Nome da entidade:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Valor solicitado:</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="matricula">Valor aprovado:</label>
+												<input type="number" class="form-control" id="entidade" name="entidade" placeholder="0,00">
+											</div>
+										</div>
+										<label class="info-text" style="text-align: center;"> Trabalho a ser apresentado (em casos de apresentação de pôster e/ou oral)</label>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Autores:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Título completo:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="matricula">Resumo do trabalho a ser apresentado:</label>
+												<textarea class="form-control" id="entidade" name="entidade" rows="9"></textarea>													
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Palavras-chave do trabalho:</label>
+												<input type="text" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+									</div>
+										<div class="row">										
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="entidade">Solicitante e-mail:</label>
+												<input type="email" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label for="matricula">Chefia imediata - de acordo:</label>
+												<input type="file" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label for="matricula">Diretor da unidade/órgão - de acordo:</label>
+												<input type="file" class="form-control" id="entidade" name="entidade">
+											</div>
+										</div>
+
+									</div>
+								</div>
+								
+								<div class="tab-pane" id="confimation">
+									<div class="row">
+										<h5 class="info-text">&nbsp;</h5>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label>Estou ciente de que deverei apresentar Prestação de Contas dos recursos utilizados:</label>
+												<select class="form-control" name="prestacao_contas">
+													<option value="1">Sim</option>
+													<option value="0">Não</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label>Estou ciente de que deverei apresentar Certificado de Participação ou Certificado de Conclusão de curso:</label>
+												<select class="form-control" name="certificado_contas">
+													<option value="1">Sim</option>
+													<option value="0">Não</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label>Estou ciente de que devo de apresentar o trabalho no Repositório Digital da EDUCORP em caso de apresentação de pôster e/ou oral em eventos nacionais ou internacionais:</label>
+												<select class="form-control" name="prestacao_contas">
+													<option value="1">Sim</option>
+													<option value="0">Não</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane" id="anexos">
+									<div class="row">		
+										<div class="col-sm-12">
+											<h5 class="info-text">Documentos requeridos:</h5>
+											<ul>
+												<li>Se curso:
+													<ul>
+														<li>Ementa resumida do curso solicitado ou outras informações (Folder, Cartaz etc.)</li>
+														<li>Programa do curso</li>
+														<li>Cópia da ficha de inscrição com detalhamento dos valores que compõem a taxa de inscrição</li>
+														<li>Orçamento de custos com transporte. Em caso de passagem aérea, a cotação deverá ser feita com a empresa registrada na Unicamp. Para orientações sobre o orçamento acesse a aba “orientação” no link: <a href="http://www.dga.unicamp.br/dga/servicos/passagens-aereas">http://www.dga.unicamp.br/dga/servicos/passagens-aereas</a></li>
+													</ul>
+												</li>
+												<li>Se evento nacional ou internacional:
+													<ul>
+														<li>Programa do evento</li>
+														<li>Convite para apresentação do trabalho ou comprovante de aceitação do trabalho enviado (se apresentação de trabalho)</li>
+														<li>Cópia do trabalho na íntegra a ser apresentado, mencionando o apoio da EDUCORP / UNICAMP (se apresentação de trabalho)</li>
+														<li>Currículo resumido conforme o modelo Curriculum Resumido</li>
+														<li>Orçamento de custos com transporte. Em caso de passagem aérea, a cotação deverá ser feita com a empresa registrada na Unicamp. Para orientações sobre o orçamento acesse a aba “orientação” no link: <a href="https://www.dga.unicamp.br/dga/servicos/passagens-aereas-aquisicao">https://www.dga.unicamp.br/dga/servicos/passagens-aereas-aquisicao</a></li>
+														<li>Documento assinado pelo solicitante, gerente imediato e Responsável pela Unidade/Órgão, conforme modelo</li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+										<div class="col-sm-5 col-sm-offset-4">
+											<div class="form-group">
+												<label>Upload de arquivos:</label>
+												<input type="file" class="form-control" id="arquivos" name="arquivos" multiple>
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-1">
+											<div class="form-group">
+												<label>Justificativa da necessidade da participação no curso ou evento:</label>
+												<textarea class="form-control" placeholder="" rows="9"></textarea>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label>Área(s) que será(ão) beneficiada(s) com a atualização solicitada:</label>
+												<textarea class="form-control" placeholder="" rows="9"></textarea>
+											</div>
+										</div>
+										<div class="col-sm-5 col-sm-offset-4">
+											<div class="form-group">
+												<label>3. O conhecimento será repassado a demais servidores? S/N</label>
+												<select class="form-control" name="conhecimento_repassado">
+													<option value="S">Sim</option>
+													<option value="N">Não</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="form-group">
+												<label>4. Se sim:</label>
+												<div class="form-group">
+													<label>a. número de servidores e/ou usuários que serão beneficiados:</label>
+													<input type="number" class="form-control" name="numero_beneficiados">
+												</div>
+												<div class="form-group">
+													<label>b. como estes servidores serão beneficiados:</label>
+													<textarea class="form-control" name="beneficiados_descricao" rows="9"></textarea>
+												</div>
+												<div class="form-group">
+													<label>c. descrever a forma como o conhecimento será repassado aos demais servidores:</label>
+													<textarea class="form-control" name="forma_repasso" rows="9"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-8">
+											<div class="form-group">
+												<label>5. Se não, justificar:</label>
+												<textarea class="form-control" name="justificativa" rows="9"></textarea>
+											</div>
+										</div>
+									</div>
+								</div>
+		                        <div class="wizard-footer">
+		                        	<div class="pull-right">
+		                                <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='next' value='Próximo' />
+		                                <input type='submit' class='btn btn-finish btn-fill btn-primary btn-wd' name='finish' value='Enviar' />
+		                            </div>
+
+		                            <div class="pull-left">
+		                                <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Anterior' />
+		                            </div>
+		                            <div class="clearfix"></div>
+		                        </div>
+		                    </form>
+		                </div>
+		            </div> <!-- wizard container -->
+		        </div>
+	        </div> <!-- row -->
+	    </div> <!--  big container -->
+
+		<div class="footer">
+	        <div class="container text-center">
+	            Educorp DEV <a href="https://servicos.educorp.unicamp.br"></a>
+	        </div>
+	    </div>
+	</div>
+
+</body>
+
+	<!--   Core JS Files   -->
+	<script src="{{ ASSETS_ROOT }}/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+	<script src="{{ ASSETS_ROOT }}/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="{{ ASSETS_ROOT }}/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+
+	<!--  Plugin for the Wizard -->
+	<script src="{{ ASSETS_ROOT }}/js/demo.js" type="text/javascript"></script>
+	<script src="{{ ASSETS_ROOT }}/js/paper-bootstrap-wizard.js" type="text/javascript"></script>
+
+	<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+	<script src="{{ ASSETS_ROOT }}/js/jquery.validate.min.js" type="text/javascript"></script>
+</html>
