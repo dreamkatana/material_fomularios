@@ -167,7 +167,7 @@
 		                                    <div>
 		                                        <div class="col-sm-4 ">
 													<div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <input type="checkbox" name="tipo_cur" value="1">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-time"></i>
 															<p>Evento Nacional&nbsp;&nbsp;&nbsp;</p>
@@ -176,7 +176,7 @@
 		                                        </div>
 		                                        <div class="col-sm-4">
 													<div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <input type="checkbox" name="tipo_cur" value="2">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-calendar"></i>
 															<p>Evento Internacional</p>
@@ -185,7 +185,7 @@
 		                                        </div>
 												<div class="col-sm-4">
 													<div class="choice" data-toggle="wizard-checkbox">
-		                                                <input type="checkbox" name="jobb" value="Design">
+		                                                <input type="checkbox" id="tipo_cur3" name="tipo_cur" value="3">
 		                                                <div class="card card-checkboxes card-hover-effect">
 		                                                    <i class="ti-calendar"></i>
 															<p>Curso de Atualização</p>
@@ -196,14 +196,14 @@
 			
 											<div class="col-sm-5 col-sm-offset-1">
 												<div class="form-group">
-													<label for="matricula">Carga horária:</label>
-													<input type="number" class="form-control" id="tit_curso" name="tit_curso">
+													<label for="carga_hor">Carga horária:</label>
+													<input type="number" class="form-control" id="carga_hor" name="carga_hor">
 												</div>
 											</div>
 											<div class="col-sm-5">
 											<div class="form-group">
-												<label for="pais">Opções curso/evento:</label>
-												<select class="form-control" id="pais" name="pais">
+												<label for="opcao_cur">Opções curso/evento:</label>
+												<select class="form-control" id="opcao_cur" name="opcao_cur">
 													<option value="">Selecione a opção</option>
 													<option value="1">Atualização</option>
 													<option value="2">Apresentação de pôster</option>
@@ -605,4 +605,5 @@
 
 	<!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
 	<script src="{{ ASSETS_ROOT }}/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="{{ ASSETS_ROOT }}/js/apoio_form.js" type="text/javascript"></script>
 </html>
