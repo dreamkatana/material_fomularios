@@ -54,7 +54,16 @@ transparent = true;
         		    },
         		    email: {
         		      required: true
-        		    }
+        		    },
+                    certificado_contas: {
+                        required: true
+                    },
+                    repositorio_dig: {
+                        required: true
+                    },
+                    prestacao_contas: {
+                        required: true
+                    }
                 },
         	});
 
@@ -135,14 +144,42 @@ transparent = true;
                     $(this).find('[type="radio"]').attr('checked','true');
                 });
 
-                $('[data-toggle="wizard-checkbox"]').click(function(){
-                    if( $(this).hasClass('active')){
+                $('[data-toggle="wizard-checkbox"]').click(function() {
+                    var checkbox = $(this).find('[type="checkbox"]');
+                    var isChecked = checkbox.prop('checked');
+                    
+                    if (isChecked) {
                         $(this).removeClass('active');
-                        $(this).find('[type="checkbox"]').removeAttr('checked');
+                        checkbox.prop('checked', false);
+                        if (checkbox.val() == 3) {
+                            $('#opcao_cur').closest('.form-group').show();
+                        }
                     } else {
                         $(this).addClass('active');
-                        $(this).find('[type="checkbox"]').attr('checked','true');
+                        checkbox.prop('checked', true);
+                        if (checkbox.val() == 3) {
+                            $('#opcao_cur').closest('.form-group').hide();
+                        }
                     }
+                });
+
+                function toggleBeneficioOptions() {
+                    var selectedValue = $('#conhecimento_repassado').val();
+                    if (selectedValue == '1') {
+                        $('#opcao_sim_bene').show();
+                        $('#opcao_nao_bene').hide();
+                    } else if (selectedValue == '0') {
+                        $('#opcao_sim_bene').hide();
+                        $('#opcao_nao_bene').show();
+                    }
+                }
+    
+                // Initial check on page load
+                toggleBeneficioOptions();
+    
+                // Bind change event to the dropdown
+                $('#conhecimento_repassado').on('change', function() {
+                    toggleBeneficioOptions();
                 });
 
                 $('.set-full-height').css('height', 'auto');
