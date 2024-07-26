@@ -69,3 +69,43 @@ class Attendance(db.Model):
     matricula = db.Column(db.Integer)
     email = db.Column(db.String(100))
     date = db.Column(db.DateTime, default=lambda: datetime.now(pytz.timezone('America/Sao_Paulo')))
+
+class CourseRegistration(db.Model):
+    __tablename__ = 'course_registrations'
+
+    id = db.Column(db.Integer, primary_key=True)
+    matricula = db.Column(db.String(10), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    tipo_cur = db.Column(db.String(2), nullable=False)
+    carga_hor = db.Column(db.String(3), nullable=False)
+    opcao_cur = db.Column(db.String(1), nullable=False)
+    tit_curso = db.Column(db.String(255), nullable=False)
+    local_evento = db.Column(db.String(255))
+    email_evento = db.Column(db.String(100))
+    data_inicio = db.Column(db.Date)
+    hora_inicio = db.Column(db.DateTime)
+    entidade = db.Column(db.String(255))
+    municipio_comunidade = db.Column(db.String(255))
+    telefone = db.Column(db.String(20))
+    data_fim = db.Column(db.Date)
+    hora_fim = db.Column(db.DateTime)
+    recur_unid = db.Column(db.Boolean, default=False)
+    numero_certificado = db.Column(db.String(20))
+    data_emissao_certificado = db.Column(db.Date)
+    matricula_chefia = db.Column(db.String(10))
+    matricula_dir = db.Column(db.String(10))
+    prestacao_contas = db.Column(db.Boolean, default=False)
+    certificado_contas = db.Column(db.Boolean, default=False)
+    repositorio_dig = db.Column(db.Boolean, default=False)
+    conhecimento_repassado = db.Column(db.Boolean, default=False)
+    numero_beneficiados = db.Column(db.Integer)
+    beneficiados_descricao = db.Column(db.Text)
+    forma_repasso = db.Column(db.Text)
+    justificativa_nao = db.Column(db.Text)
+ 
+    def __init__(self, **kwargs):
+        for property, value in kwargs.items():
+            setattr(self, property, value)
+
+    def __repr__(self):
+        return f"<CourseRegistration {self.matricula}>"
