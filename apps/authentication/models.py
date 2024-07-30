@@ -112,6 +112,8 @@ class CourseRegistration(db.Model):
     numero_beneficiados = db.Column(db.Integer, default=0)
     beneficiados_descricao = db.Column(db.Text)
     forma_repasso = db.Column(db.Text)
+    justificativa = db.Column(db.Text)
+    beneficiados_area = db.Column(db.Text)
     justificativa_nao = db.Column(db.Text)
  
     def __init__(self, **kwargs):
