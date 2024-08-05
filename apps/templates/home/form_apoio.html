@@ -78,6 +78,7 @@
 		            <div class="wizard-container">
 		                <div class="card wizard-card" data-color="azure" id="wizard">
 		                    <form method="post">
+								{{ form.hidden_tag() }}
 		                <!--        You can switch " data-color="azure" "  with one of the next bright colors: "blue", "green", "orange", "red"           -->
 
 		                    	<div class="wizard-header">
@@ -502,13 +503,13 @@
 										<div class="col-sm-5 col-sm-offset-1">
 											<div class="form-group">
 												<label for="data_inicio">Data Início:</label>
-												<input type="date" class="form-control" id="data_inicio" name="data_inicio">
+												<input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
 											</div>
 										</div>
 										<div class="col-sm-5">
 											<div class="form-group">
 												<label for="data_fim">Data Fim:</label>
-												<input type="date" class="form-control" id="data_fim" name="data_fim">
+												<input type="date" class="form-control" id="data_fim" name="data_fim" required>
 											</div>
 										</div>
 										</div>
@@ -517,13 +518,13 @@
 										<div class="col-sm-5 col-sm-offset-1">
 											<div class="form-group">
 												<label for="hora_inicio">Data e hora de início:</label>
-												<input type="datetime-local" class="form-control" id="hora_inicio" name="hora_inicio">
+												<input type="datetime-local" class="form-control" id="hora_inicio" name="hora_inicio" required>
 											</div>
 										</div>
 										<div class="col-sm-5">
 											<div class="form-group">
 												<label for="hora_fim">Data Fim:</label>
-												<input type="datetime-local" class="form-control" id="hora_fim" name="hora_fim">
+												<input type="datetime-local" class="form-control" id="hora_fim" name="hora_fim" required>
 											</div>
 										</div>
 										
@@ -553,7 +554,7 @@
 										<div class="col-sm-5 col-sm-offset-1">
 											<div class="form-group">
 												<label for="data_limite">Data limite para a inscrição:</label>
-												<input type="date" class="form-control" id="data_limite" name="data_limite">
+												<input type="date" class="form-control" id="data_limite" name="data_limite" required>
 											</div>
 										</div>
 										<div class="col-sm-5">
@@ -671,8 +672,8 @@
 												<label>Estou ciente de que devo de apresentar o trabalho no Repositório Digital da EDUCORP em caso de apresentação de pôster e/ou oral em eventos nacionais ou internacionais:</label>
 												<select class="form-control" name="repositorio_dig">
 													<option value="">-- Selecione uma opção --</option>
-													<option value="1">Sim</option>
-													<option value="0">Não</option>
+													<option value="True">Sim</option>
+													<option value="False">Não</option>
 												</select>
 											</div>
 										</div>
@@ -767,6 +768,15 @@
 		                            <div class="clearfix"></div>
 		                        </div>
 		                    </form>
+							{% with messages = get_flashed_messages(with_categories=true) %}
+							{% if messages %}
+								<ul>
+								{% for category, message in messages %}
+									<li class="{{ category }}">{{ message }}</li>
+								{% endfor %}
+								</ul>
+							{% endif %}
+						{% endwith %}
 		                </div>
 		            </div> <!-- wizard container -->
 		        </div>

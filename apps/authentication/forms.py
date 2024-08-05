@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateTimeField, BooleanField, FloatField, IntegerField
+from wtforms import StringField, PasswordField, DateTimeField, BooleanField, FloatField, IntegerField, DateField
 from wtforms.validators import Email, DataRequired
 
 # login and registration
@@ -40,16 +40,16 @@ class CourseRegistrationForm(FlaskForm):
     tit_curso = StringField('Título do Curso', validators=[DataRequired()])
     local_evento = StringField('Local do Evento', validators=[DataRequired()])
     email_evento = StringField('Email do Evento', validators=[DataRequired(), Email()])
-    data_inicio = DateTimeField('Data de Início', format='%Y-%m-%d', validators=[DataRequired()])
-    hora_inicio = DateTimeField('Hora de Início', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
-    entidade = StringField('Entidade', validators=[DataRequired()])
+    data_inicio = DateField('Data de Início', format='%Y-%m-%d', validators=[DataRequired()])
+    hora_inicio = DateTimeField('Hora de Início', format='%Y-%m-%dT%H:%M')
+    entidade = StringField('Entidade')
     municipio_comunidade = StringField('Município/Comunidade', validators=[DataRequired()])
     telefone = StringField('Telefone', validators=[DataRequired()])
-    data_fim = DateTimeField('Data de Fim', format='%Y-%m-%d', validators=[DataRequired()])
-    hora_fim = DateTimeField('Hora de Fim', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
+    data_fim = DateField('Data de Fim')
+    hora_fim = DateTimeField('Hora de Fim', format='%Y-%m-%dT%H:%M')
     recur_unid = BooleanField('Recurso da Unidade')
     recur_unid_val = FloatField('Valor do Recurso da Unidade', default=0.0)
-    data_limite = DateTimeField('Data Limite', format='%Y-%m-%d', validators=[DataRequired()])
+    data_limite = DateField('Data Limite', format='%Y-%m-%d', validators=[DataRequired()])
     val_apoio = FloatField('Valor de Apoio', default=0.0)
     val_ins = FloatField('Valor de Inscrição', default=0.0)
     val_trans = FloatField('Valor de Transporte', default=0.0)

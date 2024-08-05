@@ -4,11 +4,12 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from flask import render_template, request, redirect, url_for, jsonify, Response
+from flask import render_template, request, redirect, url_for, jsonify, Response, flash
 from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
 from apps import db
 from apps.authentication.models import Class, Attendance, CourseRegistration
+from apps.authentication.forms import CourseRegistrationForm
 from io import StringIO, BytesIO
 from itertools import cycle
 import csv
@@ -56,69 +57,68 @@ def index():
 
 @blueprint.route('/form_apoio', methods=['GET', 'POST'])
 def form_apoio():
-    if request.method == 'POST':
+    form = CourseRegistrationForm()
+    if form.validate_on_submit():
+        new_course_registration = CourseRegistration(
+            matricula=form.matricula.data,
+            email=form.email.data,
+            tipo_cur=form.tipo_cur.data,
+            carga_hor=form.carga_hor.data,
+            opcao_cur=form.opcao_cur.data,
+            tit_curso=form.tit_curso.data,
+            local_evento=form.local_evento.data,
+            email_evento=form.email_evento.data,
+            data_inicio=form.data_inicio.data,
+            hora_inicio=form.hora_inicio.data,
+            entidade=form.entidade.data,
+            municipio_comunidade=form.municipio_comunidade.data,
+            telefone=form.telefone.data,
+            data_fim=form.data_fim.data,
+            hora_fim=form.hora_fim.data,
+            recur_unid=form.recur_unid.data,
+            recur_unid_val=form.recur_unid_val.data,
+            data_limite=form.data_limite.data,
+            val_apoio=form.val_apoio.data,
+            val_ins=form.val_ins.data,
+            val_trans=form.val_trans.data,
+            val_diarias=form.val_diarias.data,
+            outra_entidade=form.outra_entidade.data,
+            outra_entidade_val=form.outra_entidade_val.data,
+            outra_entidade_val_final=form.outra_entidade_val_final.data,
+            autores=form.autores.data,
+            tit_completo=form.tit_completo.data,
+            resumo=form.resumo.data,
+            palavras_chave=form.palavras_chave.data,
+            matricula_chefia=form.matricula_chefia.data,
+            matricula_dir=form.matricula_dir.data,
+            prestacao_contas=form.prestacao_contas.data,
+            certificado_contas=form.certificado_contas.data,
+            repositorio_dig=form.repositorio_dig.data,
+            conhecimento_repassado=form.conhecimento_repassado.data,
+            numero_beneficiados=form.numero_beneficiados.data,
+            beneficiados_descricao=form.beneficiados_descricao.data,
+            forma_repasso=form.forma_repasso.data,
+            justificativa=form.justificativa.data
+        )
+        db.session.add(new_course_registration)
+        db.session.commit()
+        flash('Registro de curso adicionado com sucesso!', 'success')
+        return render_template('home/form_apoio.html', form=form)
+    else:
+        # Imprimir erros de validação
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f"Erro no campo {getattr(form, field).label.text}: {error}", 'danger')
+    return render_template('home/form_apoio.html', form=form)
+    
+    #if request.method == 'POST':
         #Use CourseRegistration model to store values from the form
         #Get the values from the form and store them in the database
         #Expand the form to include all the fields you need
-        new_course_registration = CourseRegistration(**request.form)
-        db.session.add(new_course_registration)
-        db.session.commit()
-#         return redirect(url_for('home_blueprint.index'))
-#     from flask import request, redirect, url_for, flash
-# from your_application import db
-# from your_application.models import CourseRegistration
-# from your_application.forms import CourseRegistrationForm
+        #new_course_registration = CourseRegistration(**request.form)
+        #db.session.add(new_course_registration)
+        #db.session.commit()
 
-# @app.route('/register_course', methods=['GET', 'POST'])
-# def register_course():
-#     form = CourseRegistrationForm()
-#     if form.validate_on_submit():
-#         new_course_registration = CourseRegistration(
-#             matricula=form.matricula.data,
-#             email=form.email.data,
-#             tipo_cur=form.tipo_cur.data,
-#             carga_hor=form.carga_hor.data,
-#             opcao_cur=form.opcao_cur.data,
-#             tit_curso=form.tit_curso.data,
-#             local_evento=form.local_evento.data,
-#             email_evento=form.email_evento.data,
-#             data_inicio=form.data_inicio.data,
-#             hora_inicio=form.hora_inicio.data,
-#             entidade=form.entidade.data,
-#             municipio_comunidade=form.municipio_comunidade.data,
-#             telefone=form.telefone.data,
-#             data_fim=form.data_fim.data,
-#             hora_fim=form.hora_fim.data,
-#             recur_unid=form.recur_unid.data,
-#             recur_unid_val=form.recur_unid_val.data,
-#             data_limite=form.data_limite.data,
-#             val_apoio=form.val_apoio.data,
-#             val_ins=form.val_ins.data,
-#             val_trans=form.val_trans.data,
-#             val_diarias=form.val_diarias.data,
-#             outra_entidade=form.outra_entidade.data,
-#             outra_entidade_val=form.outra_entidade_val.data,
-#             outra_entidade_val_final=form.outra_entidade_val_final.data,
-#             autores=form.autores.data,
-#             tit_completo=form.tit_completo.data,
-#             resumo=form.resumo.data,
-#             palavras_chave=form.palavras_chave.data,
-#             matricula_chefia=form.matricula_chefia.data,
-#             matricula_dir=form.matricula_dir.data,
-#             prestacao_contas=form.prestacao_contas.data,
-#             certificado_contas=form.certificado_contas.data,
-#             repositorio_dig=form.repositorio_dig.data,
-#             conhecimento_repassado=form.conhecimento_repassado.data,
-#             numero_beneficiados=form.numero_beneficiados.data,
-#             beneficiados_descricao=form.beneficiados_descricao.data,
-#             forma_repasso=form.forma_repasso.data,
-#             justificativa=form.justificativa.data
-#         )
-#         db.session.add(new_course_registration)
-#         db.session.commit()
-#         flash('Registro de curso adicionado com sucesso!', 'success')
-#         return redirect(url_for('some_view'))
-#     return render_template('register_course.html', form=form)
     return render_template('home/form_apoio.html', segment='form_apoio')
 
 
