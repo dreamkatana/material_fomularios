@@ -178,7 +178,7 @@ def filtered_attendance_data2():
     user_email = request.args.get('user_email')
 
     # Construir a query base
-    query = Attendance.query
+    query = CourseRegistration.query
 
     # Aplicar filtros conforme necessário
     if course_code:
@@ -193,9 +193,9 @@ def filtered_attendance_data2():
     if user_email:
         query = query.filter_by(email=user_email)
 
-    attendances = query.all()
+    registrations = query.all()
 
-    return render_template('home/attendance_data_todos.html', attendances=attendances, course_code=course_code, course_class=course_class)
+    return render_template('home/attendance_data_todos.html', registrations=registrations, course_code=course_code, course_class=course_class)
 
 @blueprint.route('/export_attendance_csv_all', methods=['GET'])
 @login_required
@@ -208,7 +208,7 @@ def export_attendance_csv_all():
     user_email = request.args.get('user_email')
 
     # Constrói a consulta base com possíveis filtros
-    query = Attendance.query
+    query = CourseRegistrationForm.query
     
     if course_code:
         query = query.filter_by(course_code=course_code)
@@ -222,24 +222,40 @@ def export_attendance_csv_all():
         period_end = datetime.strptime(period_end, '%Y-%m-%d') + timedelta(days=1)
         query = query.filter(Attendance.date <= datetime.strptime(period_end, '%Y-%m-%d'))
 
-    attendances = query.all()
+    registrations = query.all()
 
     def generate():
         data = StringIO()
         csv_writer = csv.writer(data, delimiter=';')
 
-        # Escreve o cabeçalho
-        csv_writer.writerow(["01", "CURSO", "TURMA", "EMP", "MATRICULA", "DATA"])
+        # Escrever cabeçalhos
+        headers = [
+            'id', 'matricula', 'email', 'tipo_cur', 'carga_hor', 'opcao_cur', 'tit_curso', 'local_evento', 'email_evento',
+            'data_inicio', 'hora_inicio', 'entidade', 'municipio_comunidade', 'telefone', 'data_fim', 'hora_fim',
+            'recur_unid', 'recur_unid_val', 'data_limite', 'val_apoio', 'val_ins', 'val_trans', 'val_diarias',
+            'outra_entidade', 'outra_entidade_val', 'outra_entidade_val_final', 'autores', 'tit_completo', 'resumo',
+            'palavras_chave', 'matricula_chefia', 'matricula_dir', 'prestacao_contas', 'certificado_contas',
+            'repositorio_dig', 'conhecimento_repassado', 'numero_beneficiados', 'beneficiados_descricao', 'forma_repasso',
+            'justificativa', 'beneficiados_area', 'justificativa_nao'
+        ]
+
+        csv_writer.writerow(headers)
 
         # Escreve as linhas de dados
-        for attendance in attendances:
+        for registration in registrations:
             csv_writer.writerow([
-                "02",
-                attendance.course_code,
-                attendance.course_class,
-                "1",  # EMP é sempre 1
-                attendance.matricula,
-                attendance.date.strftime('%d/%m/%Y')  # Formata a data
+                registration.id, registration.matricula, registration.email, registration.tipo_cur, registration.carga_hor,
+                registration.opcao_cur, registration.tit_curso, registration.local_evento, registration.email_evento,
+                registration.data_inicio, registration.hora_inicio, registration.entidade, registration.municipio_comunidade,
+                registration.telefone, registration.data_fim, registration.hora_fim, registration.recur_unid,
+                registration.recur_unid_val, registration.data_limite, registration.val_apoio, registration.val_ins,
+                registration.val_trans, registration.val_diarias, registration.outra_entidade, registration.outra_entidade_val,
+                registration.outra_entidade_val_final, registration.autores, registration.tit_completo, registration.resumo,
+                registration.palavras_chave, registration.matricula_chefia, registration.matricula_dir,
+                registration.prestacao_contas, registration.certificado_contas, registration.repositorio_dig,
+                registration.conhecimento_repassado, registration.numero_beneficiados, registration.beneficiados_descricao,
+                registration.forma_repasso, registration.justificativa, registration.beneficiados_area,
+                registration.justificativa_nao
             ])
             data.seek(0)
             yield data.read()

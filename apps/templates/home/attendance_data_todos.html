@@ -45,10 +45,11 @@
                     </div>
                 </div>
                 <!-- Inserindo o formulário de filtragem aqui -->
+                <!--
                 <div class="p-3">
                     <form action="{{ URL_FREQUENCIA }}" method="get" class="mb-4">
                         <div class="d-flex flex-wrap align-items-end">
-                            <!-- Adicione a classe custom-input a cada input -->
+                            <!-- Adicione a classe custom-input a cada input 
                             <div class="me-2 mb-3">
                                 <label for="course_code" class="form-label">Código do Curso:</label>
                                 <input type="text" id="course_code" name="course_code" class="form-control custom-input" value="{{ request.args.get('course_code', '') }}">
@@ -73,7 +74,7 @@
                         </div>
                     </form>
                 </div>
-                
+                -->
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-0">
                         <div class="p-3">
@@ -82,23 +83,29 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Curso</th>
-                                    <th>Turma</th>
-                                    <th>EMP</th>
-                                    <th>Matricula</th>
+                                    <th>Matrícula</th>
                                     <th>Email</th>
-                                    <th>Data</th>
+                                    <th>Tipo de Curso</th>
+                                    <th>Carga Horária</th>
+                                    <th>Opção de Curso</th>
+                                    <th>Título do Curso</th>
+                                    <th>Local do Evento</th>
+                                    <th>Data de Início</th>
+                                    <th>Data de Fim</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for attendance in attendances %}
+                                {% for registration in registrations %}
                                     <tr>
-                                        <td>{{ attendance.course_code }}</td>
-                                        <td>{{ attendance.course_class }}</td>
-                                        <td>{{ attendance.emp }}</td>
-                                        <td>{{ attendance.matricula }}</td>
-                                        <td>{{ attendance.email }}</td>
-                                        <td>{{ attendance.date.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                                        <td>{{ registration.matricula }}</td>
+                                        <td>{{ registration.email }}</td>
+                                        <td>{{ registration.tipo_cur }}</td>
+                                        <td>{{ registration.carga_hor }}</td>
+                                        <td>{{ registration.opcao_cur }}</td>
+                                        <td>{{ registration.tit_curso }}</td>
+                                        <td>{{ registration.local_evento }}</td>
+                                        <td>{{ registration.data_inicio.strftime('%d/%m/%Y') }}</td>
+                                        <td>{{ registration.data_fim.strftime('%d/%m/%Y') }}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
